@@ -81,6 +81,56 @@ if (mysqli_num_rows($result2) == 1) {
 //     }
 
 // }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $comments = $_POST["pres"];
+    try {
+        // Define database credentials
+        $host = "localhost";
+        $dbname = "vithealthcare";
+        $user = "root";
+        $password = "";
+
+        // Connect to the database using PDO
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "INSERT INTO medical_solution (comments, drid, mrid) VALUES (?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $comments);
+        $stmt->bindParam(2, $drid);
+        $stmt->bindParam(3, $mrid);
+        $result = $stmt->execute();
+
+        if ($result && $stmt->rowCount() > 0) {
+            // Insert query was successful
+            // Redirect to some other page after insertion
+
+        } else {
+            // Insert query was not successful
+            $inserterr = "There was an error";
+            exit;
+        }
+    } catch (PDOException $e) {
+        echo '<script>alert("Error in medical solution record")</script>';
+    }
+    $host = "localhost";
+    $dbname = "vithealthcare";
+    $user = "root";
+    $password = "";
+    // Connect to the database using PDO
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "UPDATE medical_record Set status=1 where mrid=" . $mrid;
+    $stmt = $pdo->prepare($sql);
+    $result = $stmt->execute();
+    header("location: doctorview.php");
+    exit;
+
+
+
+
+}
 mysqli_close($conn);
 
 ?>
@@ -121,17 +171,11 @@ mysqli_close($conn);
 
         }
 
-        .doc-pres textarea {
-            all: unset;
-            border: 1px solid black;
-            margin-right: 3%;
 
-            /* content-ed */
-        }
 
-        .value {
+        /* .value {
             width: 90%;
-        }
+        } */
 
         /* .doc-pres .name {
             text-align: left;
@@ -163,8 +207,8 @@ mysqli_close($conn);
             <a href="studentprofile.php" class="profile">
                 <i class="fa fa-user" aria-hidden="true"></i> Profile
             </a>
-            <a href="query.php" class="query">
-                <i class="fa fa-question-circle" aria-hidden="true"></i> Raise Query
+            <a href="dochistory.php" class="query">
+                <i class="fa fa-question-circle" aria-hidden="true"></i> History
             </a>
         </div>
     </div>
@@ -243,8 +287,8 @@ mysqli_close($conn);
                 <div class="img-icon"><i class="fa fa-stethoscope"></i></div>
                 <div class="name">Doctor Prescription</div>
                 <form class="value" method="post">
-                    <textarea id="pres" class="value" name="desc"></textarea>
-                    <button type="submit">Submit</button>
+                    <textarea id="pres" class="value" name="pres"></textarea>
+                    <button class="button-29" type="submit">Submit</button>
                 </form>
                 <div class="tot-pres-cont">
                     <div class="pres-by">Prescribed by: </div>

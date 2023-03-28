@@ -203,7 +203,7 @@ mysqli_close($conn);
                 </div>
                 <div class="details">Details</div>
                 <div class="m-cont">
-                    <div class="input">Age:</div>
+                    <div class="input">DOB:</div>
                     <div class="value">
                         <?php echo $age; ?>
                     </div>

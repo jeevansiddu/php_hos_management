@@ -63,12 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if email exists in database
     if (mysqli_num_rows($result) == 1) {
       // Get row from result set
-      $row2 = mysqli_fetch_assoc($result);
+      $row = mysqli_fetch_assoc($result);
       // Check if password matches
-      if ($password == $row2["password"]) {
+      if ($password == $row["password"]) {
         // Successful login, set session variable
         $_SESSION["loggedin"] = true;
-        $_SESSION["email"] = $row2["email"];
+        $_SESSION["email"] = $row["email"];
 
         $sql = "SELECT * FROM doctor WHERE email = '$email'";
 
@@ -82,22 +82,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
       } else {
         // Invalid password, show error message
-        echo '<script>alert("Invalid email or password")</script>';
+        $login_err = "Invalid email or password";
       }
     } else {
-      // Invalid password, show error message
+      // Email not found, show error message
       $login_err = "Invalid email or password";
     }
-  } else {
-    // Email not found, show error message
-    $login_err = "Invalid email or password";
+
   }
 
 
   // Close database connection
   mysqli_close($conn);
 }
-
 ?>
 
 <!DOCTYPE html>

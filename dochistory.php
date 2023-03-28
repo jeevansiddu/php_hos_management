@@ -65,10 +65,10 @@ try {
 
     <div class="side-header">
         <div class="side-cont">
-            <a href="studentview.php" class="home">
+            <a href="doctorview.php" class="home">
                 <i class="fa fa-home" aria-hidden="true"></i> Home
             </a>
-            <a href="studentprofile.php" class="profile">
+            <a href="doctorprofile.php" class="profile">
                 <i class="fa fa-user" aria-hidden="true"></i> Profile
             </a>
             <a href="dochistory.php" class="query">

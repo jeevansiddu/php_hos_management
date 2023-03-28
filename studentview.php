@@ -2,9 +2,9 @@
 session_start(); // Start session
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    // User is not logged in, redirect to login page
-    header("location: login.php");
-    exit;
+  // User is not logged in, redirect to login page
+  header("location: login.php");
+  exit;
 }
 if (!isset($_SESSION["email"]) || !isset($_SESSION["regno"])) {
     // User is not logged in, redirect to login page
@@ -21,14 +21,14 @@ $password = "";
 $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
 try {
-    $pdo = new PDO($dsn, $username, $password, $options);
+  $pdo = new PDO($dsn, $username, $password, $options);
 
-    $sql = "SELECT * FROM medical_record where regno= '$regno'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $sql = "SELECT * FROM medical_record where regno= '$regno'";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+  echo "Error: " . $e->getMessage();
 }
 
 
@@ -60,13 +60,13 @@ try {
         </div>
         <!-- <button class="logout">Logout</button> -->
         <!-- HTML !-->
-        <button class="button-29" role="button" onclick="window.location.href='logout.php'">Logout</button>
+        <button class="button-29" role="button" onclick="window.location.href='logout.php'" >Logout</button>
 
     </div>
 
     <div class="side-header">
         <div class="side-cont">
-            <a href="studentview.php" class="home">
+            <a href="studentview.php"  class="home">
                 <i class="fa fa-home" aria-hidden="true"></i> Home
             </a>
             <a href="studentprofile.php" class="profile">
@@ -99,30 +99,30 @@ try {
                 </div>
             </div>
             <?php foreach ($records as $record): ?>
-                <div class="row">
-                    <div class="cell" data-title="mrid">
-                        <?php echo $record['mrid']; ?>
-                    </div>
-
-                    <div class="cell" data-title="dname">
-                        <?php echo $record['disease_title']; ?>
-                    </div>
-
-                    <div class="cell" data-title="dtime">
-                        <?php echo $record['created_timestamp']; ?>
-                    </div>
-
-                    <div class="cell" data-title="status">
-                        <?php if ($record['status'] == 0) {
-                            echo 'Pending';
-                        } else {
-                            echo 'Diagnosed';
-                        } ?>
-                    </div>
-                    <div class="cell" data-title="details">
-                        <a href="mrecordstu.php?mrid=<?php echo $record['mrid'] ?>">View More</a>
-                    </div>
+            <div class="row">
+                <div class="cell" data-title="mrid">
+                <?php echo $record['mrid']; ?>
                 </div>
+
+                <div class="cell" data-title="dname">
+                <?php echo $record['disease_title']; ?>
+                </div>
+
+                <div class="cell" data-title="dtime">
+                <?php echo $record['created_timestamp']; ?>
+                </div>
+
+                <div class="cell" data-title="status">
+                <?php if( $record['status']==0){
+                        echo 'Pending';
+                      }else{
+                        echo 'Diagnosed';
+                      } ?>
+                </div>
+                <div class="cell" data-title="details">
+                    <a href="mrecordstu.php?mrid=<?php echo $record['mrid'] ?>">View More</a>
+                </div>
+            </div>
             <?php endforeach; ?>
 
 

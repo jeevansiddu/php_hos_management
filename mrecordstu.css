@@ -121,10 +121,18 @@
     padding-left: 0.7rem;
     gap: 0.8rem;
 }
+form{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+}
+
 .doc-pres textarea{
     all: unset;
     border: 1px solid black;
     margin-right: 3%;
+    width: 80%;
     /* padding-bottom: 5%;
     margin-bottom: 5%; */
 
