@@ -6,7 +6,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
-if (!isset($_SESSION["email"]) || !isset($_SESSION["regno"])) {
+if (!isset($_SESSION["email"])) {
     // User is not logged in, redirect to login page
     header("location: login.php");
     exit;
@@ -22,19 +22,6 @@ $conn = mysqli_connect($host, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-$sql = "SELECT * FROM user WHERE email = '$email'";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    $name = $row["firstname"];
-    $email = $row["email"];
-    $age = $row["dob"];
-    $batch = $row["batch"];
-    $mob_no = $row["mobile"];
-    $room_no = $row["roomno"];
-} else {
-    $row = "No data found";
-}
 
 $sql = "SELECT * FROM medical_record WHERE mrid =" . $mrid;
 $result = mysqli_query($conn, $sql);
@@ -45,6 +32,22 @@ if (mysqli_num_rows($result) == 1) {
     $duration = $row1["howlong"];
     $severity = $row1["severity"];
     $desc = $row1["disease_description"];
+    $regnostu = $row1["regno"];
+    $sql = "SELECT * FROM user WHERE regno = $regnostu";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $name = $row["firstname"];
+        $stuemail = $row["email"];
+        $age = $row["dob"];
+        $batch = $row["batch"];
+        $mob_no = $row["mobile"];
+        $room_no = $row["roomno"];
+    } else {
+        $row = "No data found";
+    }
+
+
 } else {
     $row1 = "No data found";
 }
@@ -151,14 +154,14 @@ mysqli_close($conn);
 
     <div class="side-header">
         <div class="side-cont">
-            <a href="studentview.php" class="home">
+            <a href="doctorview.php" class="home">
                 <i class="fa fa-home" aria-hidden="true"></i> Home
             </a>
-            <a href="studentprofile.php" class="profile">
+            <a href="doctorprofile.php" class="profile">
                 <i class="fa fa-user" aria-hidden="true"></i> Profile
             </a>
-            <a href="query.php" class="query">
-                <i class="fa fa-question-circle" aria-hidden="true"></i> Raise Query
+            <a href="dochistory.php" class="query">
+                <i class="fa fa-question-circle" aria-hidden="true"></i> History
             </a>
         </div>
     </div>
@@ -203,7 +206,7 @@ mysqli_close($conn);
                     <?php echo $name; ?>
                 </div>
                 <div class="email">
-                    <?php echo $email; ?>
+                    <?php echo $stuemail; ?>
                 </div>
                 <div class="details">Details</div>
                 <div class="m-cont">

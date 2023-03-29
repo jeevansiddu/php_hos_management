@@ -14,6 +14,7 @@ if (!isset($_SESSION["email"]) || !isset($_SESSION["drid"])) {
 
 $mrid = $_GET["mrid"];
 $drid = $_SESSION["drid"];
+$demail = $_SESSION["email"];
 $regno = $_GET["regno"];
 $host = "localhost";
 $username = "root";
@@ -81,8 +82,9 @@ if (mysqli_num_rows($result2) == 1) {
 //     }
 
 // }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $comments = $_POST["pres"];
+    $comments = $_POST["desc"];
     try {
         // Define database credentials
         $host = "localhost";
@@ -90,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = "root";
         $password = "";
 
+        echo '<script>alert("success")</script>';
         // Connect to the database using PDO
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -104,7 +107,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result && $stmt->rowCount() > 0) {
             // Insert query was successful
             // Redirect to some other page after insertion
+            
+            $host = "localhost";
+            $dbname = "vithealthcare";
+            $user = "root";
+            $password = "";
+            // Connect to the database using PDO
+            $pdo1 = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+            $pdo1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+            $sql = "UPDATE medical_record Set status=1 where mrid=" . $mrid;
+            $stmt = $pdo1->prepare($sql);
+            $result = $stmt->execute();
+            header("location: doctorview.php");
+            exit;
+        echo '<script>alert("success")</script>';
         } else {
             // Insert query was not successful
             $inserterr = "There was an error";
@@ -113,19 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         echo '<script>alert("Error in medical solution record")</script>';
     }
-    $host = "localhost";
-    $dbname = "vithealthcare";
-    $user = "root";
-    $password = "";
-    // Connect to the database using PDO
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = "UPDATE medical_record Set status=1 where mrid=" . $mrid;
-    $stmt = $pdo->prepare($sql);
-    $result = $stmt->execute();
-    header("location: doctorview.php");
-    exit;
 
 
 
@@ -171,11 +175,17 @@ mysqli_close($conn);
 
         }
 
+        .doc-pres textarea {
+            all: unset;
+            border: 1px solid black;
+            margin-right: 3%;
 
+            /* content-ed */
+        }
 
-        /* .value {
+        .value {
             width: 90%;
-        } */
+        }
 
         /* .doc-pres .name {
             text-align: left;
@@ -186,7 +196,7 @@ mysqli_close($conn);
 <body>
     <div class="top-header">
         <div class="logo-content">
-            <img src="./logo-removebg-preview.png" style="background-color: white" width="60px" height="50px"
+            <img src="./logo-removebg-preview.webp" style="background-color: white" width="60px" height="50px"
                 style="margin-top: 0.6vh" alt="logo" />
             <div>
                 <h2 style="color: white; text-align: center">VIT</h2>
@@ -196,20 +206,24 @@ mysqli_close($conn);
         </div>
         <!-- <button class="logout">Logout</button> -->
         <!-- HTML !-->
-        <button class="button-29" role="button">Logout</button>
+        <!-- <button class="button-29" role="button">Logout</button> -->
+        <div style="display:flex;" class="headlog">
+            <p style="color:white;padding-top: 15px;padding-right: 10px;"><?php echo $demail ?></p>
+            <button class="button-29" role="button" onclick="window.location.href='logout.php'" >Logout</button>
+        </div>
     </div>
 
     <div class="side-header">
         <div class="side-cont">
-            <a href="studentview.php" class="home">
-                <i class="fa fa-home" aria-hidden="true"></i> Home
-            </a>
-            <a href="studentprofile.php" class="profile">
-                <i class="fa fa-user" aria-hidden="true"></i> Profile
-            </a>
-            <a href="dochistory.php" class="query">
-                <i class="fa fa-question-circle" aria-hidden="true"></i> History
-            </a>
+      <a href="doctorview.php" class="home">
+        <i class="fa fa-home" aria-hidden="true"></i> Home
+      </a>
+      <a href="doctorprofile.php" class="profile">
+        <i class="fa fa-user" aria-hidden="true"></i> Profile
+      </a>
+      <a href="dochistory.php" class="query">
+        <i class="fa fa-question-circle" aria-hidden="true"></i> History
+      </a>
         </div>
     </div>
     <div class="main">
@@ -282,12 +296,12 @@ mysqli_close($conn);
                 </div>
             </div>
         </div>
-        <div class="doc-pres-cont">
+        <form method="post" class="doc-pres-cont">
             <div class="doc-pres">
                 <div class="img-icon"><i class="fa fa-stethoscope"></i></div>
                 <div class="name">Doctor Prescription</div>
                 <form class="value" method="post">
-                    <textarea id="pres" class="value" name="pres"></textarea>
+                    <textarea id="pres" class="value" name="desc"></textarea>
                     <button class="button-29" type="submit">Submit</button>
                 </form>
                 <div class="tot-pres-cont">
@@ -306,8 +320,9 @@ mysqli_close($conn);
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
+
 </body>
 
 </html>

@@ -50,7 +50,7 @@ try {
 
     <div class="top-header">
         <div class="logo-content">
-            <img src="./logo-removebg-preview.png" style="background-color: white;" width="60px" height="50px"
+            <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
                 style="margin-top: .6vh;" alt="logo">
             <div>
                 <h2 style="color:white;text-align: center;">VIT</h2>

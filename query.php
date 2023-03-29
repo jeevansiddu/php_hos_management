@@ -7,6 +7,7 @@ if (!isset($_SESSION["email"]) || !isset($_SESSION["regno"])) {
   exit;
 }
 $regno = $_SESSION["regno"];
+$email = $_SESSION["email"];
 // echo '<script>alert("'.$regno.'")</script>';
 // Check if the form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -71,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="top-header">
         <div class="logo-content">
-            <img src="./logo-removebg-preview.png" style="background-color: white;" width="60px" height="50px"
+            <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
                 style="margin-top: .6vh;" alt="logo">
             <div>
                 <h2 style="color:white;text-align: center;">VIT</h2>
@@ -81,8 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <!-- <button class="logout">Logout</button> -->
         <!-- HTML !-->
-        <button class="button-29" role="button">Logout</button>
-
+        <div style="display:flex;" class="headlog">
+            <p style="color:white;padding-top: 15px;padding-right: 10px;"><?php echo $email ?></p>
+            <button class="button-29" role="button" onclick="window.location.href='logout.php'" >Logout</button>
+        </div>
     </div>
 
     <div class="side-header">

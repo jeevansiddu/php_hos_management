@@ -49,7 +49,7 @@ try {
 <body>
     <div class="top-header">
         <div class="logo-content">
-            <img src="./logo-removebg-preview.png" style="background-color: white;" width="60px" height="50px"
+            <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
                 style="margin-top: .6vh;" alt="logo">
             <div>
                 <h2 style="color:white;text-align: center;">VIT</h2>
@@ -59,8 +59,10 @@ try {
         </div>
         <!-- <button class="logout">Logout</button> -->
         <!-- HTML !-->
-        <button class="button-29" role="button" onclick="window.location.href='logout.php'">Logout</button>
-
+        <div style="display:flex;" class="headlog">
+            <p style="color:white;padding-top: 15px;padding-right: 10px;"><?php echo $email ?></p>
+            <button class="button-29" role="button" onclick="window.location.href='logout.php'" >Logout</button>
+        </div>
     </div>
 
     <div class="side-header">
@@ -153,7 +155,7 @@ try {
                         <?php echo $record['severity']; ?>
                     </div>
                     <div class="cell" data-title="details">
-                        <a href="mrecorddoc.php?mrid=<?php echo $record['mrid'] ?>&&regno=<?php echo $record['regno'] ?>">View
+                        <a href="mrecordhisdoc.php?mrid=<?php echo $record['mrid'] ?>">View
                             More</a>
                     </div>
                 </div>

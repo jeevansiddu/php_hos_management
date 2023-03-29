@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Get email and password from form
   $email = $_POST["email"];
   $password = $_POST["password"];
-  $radioVal = $_POST["radiotype"];
+  $radioVal = $_POST["type"];
   // Connect to database
   $conn = mysqli_connect("localhost", "root", "", "vithealthcare");
 
@@ -88,9 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Email not found, show error message
       $login_err = "Invalid email or password";
     }
-
   }
-
 
   // Close database connection
   mysqli_close($conn);
@@ -107,23 +105,85 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="style.css" />
   <title>HOSPITAL MANAGEMENT</title>
+  <style>
+    .form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2vh 8vw;
+      width: 100%;
+    }
+
+    .radio-cont {
+      display: flex;
+      justify-content: space-between;
+      padding: 3%;
+    }
+
+    .input-hidden {
+      /* For Hiding Radio Button Circles */
+      position: absolute;
+      left: -9999px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      width: 60px;
+      height: 50px;
+      margin-top: .6vh;
+      background-color: white;
+    }
+
+    input[type="radio"]:checked+label>img {
+      border: 1px solid rgb(157, 255, 0);
+      box-shadow: 0 0 3px 3px #9e00e2;
+    }
+
+    input[type="radio"]+label>img {
+      border: 1px rgb(0, 0, 0);
+      padding: 10px;
+      transition: 500ms all;
+    }
+  </style>
 </head>
 
 <body>
   <div class="whole-cont">
     <div class="cont1">
       <form class="form" method="post">
-        <div class="logo"><i class="fa fa-heart"></i> Logo</div>
+        <!-- <div class="logo"><i class="fa fa-heart"></i> Logo</div> -->
+        <div class="logo-content" style="display:flex; align-items:center;">
+          <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
+            style="margin-top: .6vh;" alt="logo">
+          <div>
+            <h2 style="color:blue;text-align: center; margin:0px;">VIT</h2>
+            <hr style="color:blue">
+            <h4 style="color:blue; margin:0px;">Hospital Management System</h4>
+          </div>
+        </div>
         <div class="creta">Log in</div>
-        <div class="radio-cont">
-          <div class="div1">
-            <input type="radio" id="stu" name="radiotype" value="stu" required />
-            <label for="stu">STUDENT</label>
-          </div>
-          <div class="div1">
-            <input type="radio" id="doc" name="radiotype" value="doc" />
-            <label for="doc">DOCTOR</label>
-          </div>
+        <!-- <div class="radio-cont">
+            <div class="div1">
+              <input type="radio" id="stu" name="type" value="stu" />
+              <label for="stu">STUDENT</label>
+            </div>
+            <div class="div1">
+              <input type="radio" id="doc" name="type" value="doc" />
+              <label for="doc">DOCTOR</label>
+            </div>
+          </div> -->
+        <div textalign="center" class="radio-cont" style=" color:white;">
+          <input type="radio" id="stu" name="type" class="Send_data  input-hidden" value="stu" checked required />
+          <label for="stu">
+            <img src="./college-student.jpg" style="width:10vw; height:19vh;border-radius:20px;" />
+          </label>
+          <input type="radio" id="doc" name="type" class="Send_data  input-hidden" value="doc" />
+          <label for="doc">
+            <img src="./female-doctor.jpg" style="width:10vw;height: 19vh; border-radius:20px;" />
+            <br><br>
+          </label>
         </div>
         <label for="email">Email</label>
         <input type="text" name="email" id="email" required />
@@ -141,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class="cont2">
       <div class="img-cont">
-        <img src="./img3.jpg" />
+        <img id="rightimg" src="./img3.jpg" />
       </div>
     </div>
   </div>

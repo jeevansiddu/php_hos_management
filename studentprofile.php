@@ -12,7 +12,7 @@ if (!isset($_SESSION["email"]) || !isset($_SESSION["regno"])) {
 }
 
 $regno = $_SESSION["regno"];
-
+$email = $_SESSION["email"];
 $dsn = "mysql:host=localhost;dbname=vithealthcare";
 $username = "root";
 $password = "";
@@ -41,11 +41,12 @@ try {
     <title>Document</title>
     <link rel="stylesheet" href="./studprof.css">
     <link rel="stylesheet" href="./style4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
     <div class="top-header">
         <div class="logo-content">
-            <img src="./logo-removebg-preview.png" style="background-color: white;" width="60px" height="50px"
+            <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
                 style="margin-top: .6vh;" alt="logo">
             <div>
                 <h2 style="color:white;text-align: center;">VIT</h2>
@@ -55,8 +56,10 @@ try {
         </div>
         <!-- <button class="logout">Logout</button> -->
         <!-- HTML !-->
-        <button class="button-29" role="button" onclick="window.location.href='logout.php'" >Logout</button>
-
+        <div style="display:flex;" class="headlog">
+            <p style="color:white;padding-top: 15px;padding-right: 10px;"><?php echo $email ?></p>
+            <button class="button-29" role="button" onclick="window.location.href='logout.php'" >Logout</button>
+        </div>
     </div>
 
     <div class="side-header">

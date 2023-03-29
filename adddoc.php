@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="top-header">
         <div class="logo-content">
-            <img src="./logo-removebg-preview.png" style="background-color: white;" width="60px" height="50px"
+            <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
                 style="margin-top: .6vh;" alt="logo">
             <div>
                 <h2 style="color:white;text-align: center;">VIT</h2>
@@ -135,13 +135,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form class="form-container" method="post">
             <h1>Doctor Profile</h1>
             <div class="form-wrapper">
-                <input type="text" name="fname" id="fname" placeholder="first name">
+                <input type="text" name="fname" id="fname" placeholder="first name" required>
 
-                <input type="text" name="lname" id="lname" placeholder="last name">
+                <input type="text" name="lname" id="lname" placeholder="last name" required>
 
-                <input type="text" name="speciality" id="speciality" placeholder="speciality">
+                <input type="text" name="speciality" id="speciality" placeholder="speciality" required>
 
-                <input type="date" name="dob" id="dob" placeholder="dob">
+                <input type="date" name="dob" id="dob" placeholder="dob" required>
                 
                 <label for="gender">Gender:</label>
                 <div class="radio-cont">
@@ -155,19 +155,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
                 
-                <input type="text" name="email" id="email" placeholder="email">
+                <input type="text" name="email" id="email" placeholder="email" required>
                 
-                <input type="text" name="phone" id="phone" placeholder="phone">
+                <input type="text" name="phone" id="phone" placeholder="phone" required>
 
-                <input type="text" name="password" id="password" placeholder="password">
+                <input type="text" name="password" id="password" placeholder="password" required>
 
-                <input type="text" name="cpassword" id="cpassword" placeholder="confirm password">
+                <input type="text" name="cpassword" id="cpassword" placeholder="confirm password" required>
 
-                <textarea name="address" id="address" placeholder="Address"></textarea>
+                <textarea name="address" id="address" placeholder="Address"></textarea required>
 
             </div>
 
-            <input type="submit" value="submit" class="button-29 btn" role="button">
+            <input type="submit" value="submit" class="button-29 btn" role="button" required>
         </form>
     </div>
 </body>

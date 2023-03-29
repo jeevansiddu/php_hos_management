@@ -61,7 +61,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="whole-cont">
       <div class="cont1">
         <form class="form" method="post">
-          <div class="logo"><i class="fa fa-heart"></i> Logo</div>
+          <div class="logo-content" style="display:flex; align-items:center;">
+            <img src="./logo-removebg-preview.webp" style="background-color: white;" width="60px" height="50px"
+                style="margin-top: .6vh;" alt="logo">
+            <div>
+                <h2 style="color:blue;text-align: center; margin:0px;">VIT</h2>
+                <hr style="color:blue">
+                <h4 style="color:blue; margin:0px;">Hospital Management System</h4>
+            </div>
+        </div>
           <div class="creta">Create Account</div>
           <label for="email">Email</label>
           <input type="text" name="email" id="email" required/>
@@ -79,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="cont2">
         <div class="img-cont">
-          <img src="./img3.jpg" />
+          <img id="rightimg" src="./img3.jpg" />
         </div>
       </div>
     </div>
